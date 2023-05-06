@@ -8,7 +8,7 @@ arduino-cli core install arduino:avr
 arduino-cli core list
 arduino-cli sketch new Blink
 
-cat << EOT >> Blink/Blink.ino
+cat << EOT > Blink/Blink.ino
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
 }
