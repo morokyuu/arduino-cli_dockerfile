@@ -1,0 +1,25 @@
+#!/bin/bash
+# before running this script, check /dev/ttyACM0 exist and its permission.
+
+arduino-cli config init
+arduino-cli core update-index
+arduino-cli board list
+arduino-cli core install arduino:avr
+arduino-cli core list
+arduino-cli sketch new Blink
+
+cat << EOT >> Blink/Blink.ino
+void setup() {
+    pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(100);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(100);
+}
+EOT
+
+arduino-cli compile --fqbn arduino:avr:uno Blink
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno Blink
